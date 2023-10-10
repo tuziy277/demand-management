@@ -1,7 +1,16 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 const account = ref('')
 const password = ref('')
+
+// router钩子，返回路由器实例
+const router = useRouter()
+
+// 登录
+const onLogin = () => {
+  router.push('/home')
+}
 </script>
 
 <template>
@@ -14,7 +23,7 @@ const password = ref('')
       <el-input v-model="password" type="password" placeholder="密码" show-password />
     </div>
     <div class="ipt-con">
-      <el-button type="primary" style="width: 100%">登录</el-button>
+      <el-button type="primary" style="width: 100%" @click="onLogin">登录</el-button>
     </div>
   </div>
 </template>

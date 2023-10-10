@@ -1,10 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="App">
-    Electron-Vite-Vue-App
-    <el-button type="primary">Primary</el-button>
-  </div>
+  <router-view />
 </template>
 
-<style scoped></style>
+<style scoped lang="stylus"></style>

@@ -1,10 +1,23 @@
-<script setup></script>
+<script setup>
+import { useRouter } from 'vue-router'
+import { gotoPath } from '@renderer/api'
+// router钩子，返回路由器实例
+const router = useRouter()
+
+// 登录
+const goto = (path) => {
+  router.push('path')
+}
+</script>
 
 <template>
   <div class="P-home">
     <h1>Home Page</h1>
     <div class="ipt-con">
-      <el-button>返回登录</el-button>
+      <el-button @click="gotoPath('/login')">组件外跳转</el-button>
+    </div>
+    <div class="ipt-con">
+      <el-button @click="goto('/login')">返回登录</el-button>
     </div>
   </div>
 </template>
