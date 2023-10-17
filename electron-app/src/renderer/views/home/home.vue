@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { gotoPath } from '@renderer/api'
+import { ElMessageBox } from 'element-plus'
 // router钩子，返回路由器实例
 const router = useRouter()
 const { ipcRenderer } = window.electron
@@ -21,6 +22,14 @@ const readDir = () => {
     }
   })
 }
+// 获取Electron版本号 - 给主进程发送消息并异步等待结果
+const getElectronVersion = () => {
+  ipcRenderer.invoke('getElectronVersion').then((result) => {
+    ElMessageBox.alert(result, 'Electron版本号', {
+      confirmButtonText: 'OK'
+    })
+  })
+}
 </script>
 
 <template>
@@ -28,6 +37,9 @@ const readDir = () => {
     <h1>Home Page</h1>
     <div class="ipt-con">
       <el-button type="primary" @click="readDir">读取目录列表</el-button>
+    </div>
+    <div className="ipt-con">
+      <el-button type="primary" @click="getElectronVersion">查看Electron版本</el-button>
     </div>
     <div class="ipt-con">
       <el-button @click="gotoPath('/login')">组件外跳转</el-button>

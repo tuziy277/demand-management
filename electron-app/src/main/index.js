@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { readDir } from './readDir'
+import { getElectronVersion } from './version'
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -70,3 +71,4 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
 ipcMain.on('readDir', readDir)
+ipcMain.handle('getElectronVersion', getElectronVersion)
