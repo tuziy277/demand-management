@@ -3,16 +3,32 @@ import { useRouter } from 'vue-router'
 import { gotoPath } from '@renderer/api'
 // router钩子，返回路由器实例
 const router = useRouter()
-
+const { ipcRenderer } = window.electron
 // 登录
 const goto = (path) => {
   router.push('path')
+}
+// 读取目录文件列表
+const readDir = () => {
+  // 给主进程发送消息
+  ipcRenderer.send('readDir', { msg: 'test' })
+  // 通过preload接收主进程的回调信息
+  window.api.readDirReply((event, result) => {
+    if (!result.canceled) {
+      console.log(result)
+    } else {
+      console.log('取消选择操作。')
+    }
+  })
 }
 </script>
 
 <template>
   <div class="P-home">
     <h1>Home Page</h1>
+    <div class="ipt-con">
+      <el-button type="primary" @click="readDir">读取目录列表</el-button>
+    </div>
     <div class="ipt-con">
       <el-button @click="gotoPath('/login')">组件外跳转</el-button>
     </div>
