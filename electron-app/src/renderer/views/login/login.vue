@@ -15,7 +15,7 @@ const onLogin = () => {
 
 <template>
   <div class="P-login">
-    <img src="./logo.png" class="logo" />
+    <img class="logo" />
     <div class="ipt-con">
       <el-input v-model="account" placeholder="账号" />
     </div>

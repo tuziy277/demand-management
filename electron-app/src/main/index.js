@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, globalShortcut } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -11,10 +11,15 @@ function createWindow() {
     height: 670,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    // ...(process.platform === 'linux' ? { icon } : {}),
+    icon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      // 禁用同源策略，允许跨域请求
+      webSecurity: false,
+      // 禁止build环境使用DevTool
+      devTools: is.dev ? true : false
     }
   })
 
@@ -34,6 +39,11 @@ function createWindow() {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  // 设置DevTools快捷键
+  globalShortcut.register('CommandOrControl+Shift+i', function () {
+    mainWindow.webContents.openDevTools()
+  })
 }
 
 // This method will be called when Electron has finished
