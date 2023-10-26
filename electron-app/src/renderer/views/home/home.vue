@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { gotoPath } from '@renderer/api'
+import { ref } from 'vue'
 import { ElMessageBox } from 'element-plus'
 // router钩子，返回路由器实例
 const router = useRouter()
@@ -30,11 +31,12 @@ const getElectronVersion = () => {
     })
   })
 }
+const input = ref('')
 </script>
 
 <template>
   <div class="P-home">
-    <h1>Home Page</h1>
+    <!-- <h1>Home Page</h1>
     <div class="ipt-con">
       <el-button type="primary" @click="readDir">读取目录列表</el-button>
     </div>
@@ -46,6 +48,10 @@ const getElectronVersion = () => {
     </div>
     <div class="ipt-con">
       <el-button @click="goto('/login')">返回登录</el-button>
+    </div> -->
+    <div>
+      <el-input v-model="input" placeholder="Please input" />
+      <el-button type="primary">添加</el-button>
     </div>
   </div>
 </template>
